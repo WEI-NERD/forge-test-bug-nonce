@@ -21,4 +21,15 @@ contract CounterTest is Test {
         counter.setNumber(x);
         assertEq(counter.number(), x);
     }
+
+    function test_Nonce() public {
+        Account memory deployer = makeAccount("deployer");
+
+        startHoax(deployer.addr);
+        console2.log("nonce before is %s", vm.getNonce(deployer.addr));
+        counter = new Counter();
+        console2.log("nonce after is %s", vm.getNonce(deployer.addr));
+
+        console2.log("Counter deployed at %s", address(counter));
+    }
 }
